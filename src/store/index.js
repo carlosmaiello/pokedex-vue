@@ -11,6 +11,9 @@ export default createStore({
   mutations: {
     setPokemons(state, pokemons) {
       state.pokemons = pokemons;
+    },
+    setPokemon(state, pokemon) {
+      state.pokemon = pokemon;
     }
   },
   actions: {
@@ -20,6 +23,10 @@ export default createStore({
     },
     consultarPokemon({}, id) {
       return api.get(`/pokemon-form/${id}`);
+    },
+    async selecionarPokemon({ state, dispatch, commit }, id) {
+      const res = await dispatch('consultarPokemon', id);
+      commit('setPokemon', res.data);
     }
   },
   modules: {
