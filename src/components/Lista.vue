@@ -6,6 +6,8 @@ import ListaItem from './ListaItem.vue';
 const store = useStore();
 const pokemons = computed(() => store.state.pokemons);
 const pokemonSelecionado = computed(() => store.state.pokemon);
+const temAnteriores = computed(() => store.state.previous != null)
+const temProximos = computed(() => store.state.next != null)
 
 onMounted(() => {
     store.dispatch('consultarPokemons');
@@ -24,8 +26,8 @@ onMounted(() => {
             </li>
         </ul>
         <div class="d-flex justify-content-between my-3">
-            <button class="btn btn-primary">Anterior</button>
-            <button class="btn btn-primary">Próximo</button>
+            <button class="btn btn-primary" @click="store.dispatch('anteriores')" :disabled="!temAnteriores">Anterior</button>
+            <button class="btn btn-primary" @click="store.dispatch('proximos')" :disabled="!temProximos">Próximo</button>
         </div>
     </div>
 </template>
